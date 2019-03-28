@@ -18,14 +18,14 @@ void loop() {
   // put your main code here, to run repeatedly:
   if(servo.moving() == false)
   {
-    if(movingPos1 == true)
+    if(movingPos1 == true) //first position
     {
       servo.write(0);
       movingPos1 = false;
     }
     else
     {
-      servo.write(180);
+      servo.write(180); //second position
       movingPos1 = true;
     }
   }
