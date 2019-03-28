@@ -1,4 +1,4 @@
-#include "ServoSpeed.h"
+#include <ServoSpeed.h>
 
 #define SERVOPIN PA0
 CServoSpeed servo;
