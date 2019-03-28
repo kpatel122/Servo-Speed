@@ -1,0 +1,21 @@
+#######################################
+# Syntax Coloring Map Servo
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+CServoSpeed	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+attach  KEYWORD2
+write   KEYWORD2
+setSpeed    KEYWORD2
+update  KEYWORD2
+moving  KEYWORD2
+#######################################
+# Constants (LITERAL1)
+#######################################
