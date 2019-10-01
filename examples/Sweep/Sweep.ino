@@ -1,6 +1,11 @@
 #include <ServoSpeed.h>
 
-#define SERVOPIN PA0
+#define SERVO1_PIN PA7
+#define SERVO2_PIN PA6
+#define SERVO3_PIN PA1
+#define SERVO4_PIN PA0
+
+#define SERVOPIN SERVO4_PIN
 CServoSpeed servo;
 int servoSpeed = 15;
 bool movingPos1 = true; //movingPosition1 is 180. after 180 reset the position to 0
