@@ -28,23 +28,25 @@ OTHER DEALINGS IN THE SOFTWARE.
 #define SERVOSPEED_H
 
 #include "Arduino.h"
-#include <Servo.h>
+#ifdef ESP32
+#include <ESP32Servo.h>
+#else
+	#include <Servo.h>
+#endif
+
 
  
+
 
           
 class CServoSpeed
 {
     public:
-    bool attach(uint8 pin,
-                uint16 minPulseWidth=SERVO_DEFAULT_MIN_PW,
-                uint16 maxPulseWidth=SERVO_DEFAULT_MAX_PW,
-                int16 minAngle=SERVO_DEFAULT_MIN_ANGLE,
-                int16 maxAngle=SERVO_DEFAULT_MAX_ANGLE);
+    bool attach(uint8_t pin);
     
-    void write(uint8 angle);
+    void write(uint8_t angle);
 
-    void setSpeed(uint8 speed) {this->speed = speed;}
+    void setSpeed(uint8_t speed) {this->speed = speed;}
 
     void update(); //must be called once per loop
 
@@ -56,9 +58,9 @@ class CServoSpeed
     bool positionSet;  
     bool waitingForDelay = false;
     unsigned long initialMillis;
-    uint8 currentAngle;
-    uint8 destinationAngle;
-    uint8 speed;
+    uint8_t currentAngle;
+    uint8_t destinationAngle;
+    uint8_t speed;
 };
 
 #endif

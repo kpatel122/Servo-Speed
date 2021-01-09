@@ -26,25 +26,39 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 #include "ServoSpeed.h"
 
-bool CServoSpeed::attach(uint8 pin,
-                uint16 minPulseWidth,
-                uint16 maxPulseWidth,
-                int16 minAngle,
-                int16 maxAngle)
+bool CServoSpeed::attach(uint8_t pin)
 {
-    bool res = servo.attach(pin,
-                minPulseWidth,
-                maxPulseWidth,
-                minAngle,
-                maxAngle);
+
+	bool res = true;
+#ifdef ESP32
+	ESP32PWM::allocateTimer(0);
+		ESP32PWM::allocateTimer(1);
+		ESP32PWM::allocateTimer(2);
+		ESP32PWM::allocateTimer(3);
+		servo.setPeriodHertz(50);    // standard 50 hz servo
+		servo.attach(pin, 1000, 2000); // attaches the servo on pin 18 to the servo object
+#else
+	  res = servo.attach(pin);
+#endif
+
+
+
     isMoving = false;
     positionSet = false;
     waitingForDelay = false;
-    uint8 currentPos = 0;
-    return res;
+    uint8_t currentPos = 0;
+
+
+
+	// using default min/max of 1000us and 2000us
+	// different servos may require different min/max settings
+	// for an accurate 0 to 180 sweep
+
+
+    return res; //res is not applicable for ESP32
 }
 
-void CServoSpeed::write(uint8 angle)
+void CServoSpeed::write(uint8_t angle)
 {
     if(positionSet == false)
     {
@@ -61,6 +75,7 @@ void CServoSpeed::write(uint8 angle)
 
 void CServoSpeed::update()
 {
+	//must be called once per frame
     if(!isMoving || (currentAngle == destinationAngle) )
         return;
 
